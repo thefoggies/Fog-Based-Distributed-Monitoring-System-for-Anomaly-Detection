@@ -1,68 +1,67 @@
-# 🌩️ Fog-Based Distributed Monitoring System for Anomaly Detection
+# Fog-Based Distributed Monitoring System for Anomaly Detection
 
-Ce projet implémente une architecture Fog Computing composée de **3 nœuds IoT distribués** permettant le nettoyage, l’analyse, la détection d’anomalies et la visualisation de données environnementales générées par Node-RED.
+Ce projet met en place une architecture Fog Computing composée de trois nœuds permettant le nettoyage, l’analyse, la détection d’anomalies et la visualisation de données environnementales générées par Node-RED.  
+L’objectif est de construire un pipeline IoT distribué, simple et efficace.
 
-L’objectif : créer un pipeline intelligent, réactif et distribué pour simuler un système IoT industriel.
+---
 
+## 1. Architecture Générale
 
-## 🚀 Architecture Globale
-
-
-### 🔵 **PC1 — Cleaning Node**
+### 1.1 PC1 – Cleaning Node
 - Reçoit les données brutes depuis Node-RED  
-- Nettoie les données (filtrage, arrondi, ajout timestamp)  
+- Nettoie les données (filtrage, arrondi, timestamp)  
 - Envoie les données nettoyées à PC2  
 
-📄 *Code : `pc1_cleaner.py` 
+**Fichier :** `pc1_cleaner.py`
 
+---
 
-### 🟣 **PC2 — Anomaly Detection Node**
+### 1.2 PC2 – Anomaly Detection Node
 - Reçoit les données nettoyées depuis PC1  
-- Analyse :
-  - température hors limites  
-  - humidité hors limites  
-- Génère un statut :
-  - `"normal"`
-  - `"anomaly"`
-- Envoie les alertes vers PC3 (via API Flask)
+- Détecte les anomalies sur la température et l’humidité  
+- Produit un statut : `normal` ou `anomaly`  
+- Transmet les alertes vers PC3 via API Flask  
 
-📄 *Code : `pc2_analyze.py`*
+**Fichier :** `pc2_analyze.py`
 
-## 📊 PC3 - Visualisation — Grafana + InfluxDB
-- Reçoit les alertes depuis PC2  
-- Stocke les alertes dans **InfluxDB 1.8** 
-- Affiche les graphiques dans **Grafana**  
-- Sauvegarde les dashboards dans **Firebase Firestore**
-- Base : `fog_data`
-- Mesure : `alerts`
-- Champs stockés :  
-  - `temperature`  
-  - `humidity`  
-  - `status`  
-  - `timestamp`  
-- Dashboard : courbes temps réel des alertes IoT  
+---
 
-## ☁️ Sauvegarde Cloud — Firebase Firestore
+## 2. PC3 – Visualisation (Grafana + InfluxDB)
 
-Chaque dashboard Grafana exporté en JSON est :
+- Reçoit les alertes envoyées par PC2  
+- Stocke les données dans InfluxDB (base : `fog_data`, mesure : `alerts`)  
+- Affiche les graphiques dans Grafana  
+- Exporte les dashboards en JSON  
+- Sauvegarde des dashboards dans Firebase Firestore
 
-✔ enregistré dans une collection Firestore :  
-**`dashboards/exports`**
+**Champs stockés :**
+- temperature  
+- humidity  
+- status  
+- timestamp  
 
-Cela permet :
-- 🔒 un backup sécurisé  
-- 🌍 un accès multi-machines  
-- 🧪 une traçabilité historique des dashboards  
+---
 
-## 🛠️ Technologies Utilisées
+## 3. Sauvegarde Cloud (Firebase Firestore)
 
-- **Python Flask**
-- **Node-RED** (simulateur IoT)
-- **InfluxDB 1.8** (Docker)
-- **Grafana**
-- **Firebase Firestore**
-- **HTTP REST APIs**
-- **Fog Computing Architecture**
+Les dashboards Grafana exportés sont enregistrés dans :
 
+**Collection :** `dashboards/exports`
 
+Cette sauvegarde permet un stockage sécurisé et une récupération facile du travail.
 
+---
+
+## 4. Technologies Utilisées
+
+- Python (Flask)
+- Node-RED
+- InfluxDB 1.8  
+- Grafana  
+- Firebase Firestore  
+- APIs REST  
+- Architecture Fog Computing
+
+---
+
+Travail réalisé dans le cadre d’un projet étudiant d’architecture Fog Computing.
