@@ -28,8 +28,6 @@ L’objectif : créer un pipeline intelligent, réactif et distribué pour simul
 
 📄 *Code : `pc2_analyze.py`*
 
----
-
 ## 📊 PC3 - Visualisation — Grafana + InfluxDB
 - Reçoit les alertes depuis PC2  
 - Stocke les alertes dans **InfluxDB 1.8** 
@@ -44,9 +42,6 @@ L’objectif : créer un pipeline intelligent, réactif et distribué pour simul
   - `timestamp`  
 - Dashboard : courbes temps réel des alertes IoT  
 
-
----
-
 ## ☁️ Sauvegarde Cloud — Firebase Firestore
 
 Chaque dashboard Grafana exporté en JSON est :
@@ -58,8 +53,6 @@ Cela permet :
 - 🔒 un backup sécurisé  
 - 🌍 un accès multi-machines  
 - 🧪 une traçabilité historique des dashboards  
-
----
 
 ## 🛠️ Technologies Utilisées
 
